@@ -1,0 +1,12 @@
+image: maven:3.6.3-jdk-11
+
+
+stages:
+  - Test
+
+Test:
+  stage: Test
+  script:
+    - mvn clean install
+  artifacts:
+    when: always

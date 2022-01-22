@@ -1,13 +1,6 @@
 image: maven:3.6.3-jdk-11
 
-deploy:
-  stage: deploy
-  script:
-    - gem install dpl
-    - dpl --provider=heroku --app=prac-spring-1 --api-key=$HEROKU_API_KEY
 
-stages:
-  - Test
 
 Test:
   stage: Test
@@ -15,3 +8,11 @@ Test:
     - mvn clean install
   artifacts:
     when: always
+
+
+staging:
+  stage: deploy
+  before_script:
+    - gem install dpl
+  script:
+    - dpl --provider=heroku --app=HEROKU_APP_SPRING_1 --api-key=$HEROKU_API_KEY

@@ -1,13 +1,13 @@
 image: python:3.9
 
 maven-build:
-  image: maven:3.9.0-jdk-14
+  image: maven:3.6.3-jdk-14
   stage: build
   script: "mvn package -B"
 
 
 test:
-  image: maven:3.9.0-jdk-14
+  image: maven:3.6.3-jdk-14
   stage: test
   script:
     - mvn clean install

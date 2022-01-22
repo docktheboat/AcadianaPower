@@ -15,6 +15,7 @@ staging:
   before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
+    - gem install faraday -v 1.9.3
     - gem install dpl
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_SPRING_1 --api-key=$HEROKU_API_KEY

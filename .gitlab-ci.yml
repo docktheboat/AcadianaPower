@@ -4,7 +4,7 @@ deploy:
   stage: deploy
   script:
     - gem install dpl
-    - dpl --provider=heroku --app=<app_id> --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=prac-spring-1 --api-key=$HEROKU_API_KEY
 
 stages:
   - Test

@@ -1,11 +1,6 @@
 package com.practice2.SpringPractice2;
-
-import com.practice2.SpringPractice2.student.StudentModel;
-import com.practice2.SpringPractice2.student.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,15 +18,9 @@ public class SpringPractice2Application {
 @RestController
 class Welcome{
 
-	private final StudentService studentService;
-
-	@Autowired
-	public Welcome(StudentService studentService) {
-		this.studentService = studentService;
-	}
 
 	@GetMapping("/")
 	public String welcome(){
-		return "hey";
+		return "Welcome";
 	}
 }

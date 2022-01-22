@@ -1,12 +1,12 @@
-image: python:3.9
+#image: python:3.9
 
-maven-build:
-  image: maven:3.6.3-jdk-14
-  stage: build
-  script: "mvn package -B"
-  artifacts:
-    paths:
-      - target/*.jar
+#maven-build:
+ # image: maven:3.6.3-jdk-14
+ # stage: build
+ # script: "mvn package -B"
+ # artifacts:
+ #   paths:
+ #     - target/*.jar
 
 test:
   image: maven:3.6.3-jdk-14
@@ -17,15 +17,15 @@ test:
     when: always
 
 
-staging:
-  stage: deploy
-  before_script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - apt-get install faraday -v 1.9.3
-    - gem install dpl
-  script:
-    - dpl --provider=heroku --app=$HEROKU_APP_SPRING_1 --api-key=$HEROKU_API_KEY
+#staging:
+#  stage: deploy
+#  before_script:
+#    - apt-get update -qy
+#    - apt-get install -y ruby-dev
+#    - apt-get install faraday -v 1.9.3
+#    - gem install dpl
+#  script:
+#    - dpl --provider=heroku --app=$HEROKU_APP_SPRING_1 --api-key=$HEROKU_API_KEY
 
 
 

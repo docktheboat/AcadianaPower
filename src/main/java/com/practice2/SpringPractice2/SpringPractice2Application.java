@@ -31,7 +31,7 @@ class Welcome{
 	}
 
 	@GetMapping("/")
-	public List<StudentModel> welcome(){
-		return studentService.getAllStudents();
+	public String welcome(){
+		return studentService.getAllStudents().toString();
 	}
 }

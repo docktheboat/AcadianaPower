@@ -19,7 +19,7 @@ staging:
   stage: deploy
   before_script:
     - apt-get update -qy
-    - apt-get install rubygems
+    - apt-get install -y ruby-dev
     - apt-get install faraday -v 1.9.3
     - gem install dpl
   script:

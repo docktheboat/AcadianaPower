@@ -32,6 +32,6 @@ class Welcome{
 
 	@GetMapping("/")
 	public String welcome(){
-		return studentService.getAllStudents().toString();
+		return "hey";
 	}
 }

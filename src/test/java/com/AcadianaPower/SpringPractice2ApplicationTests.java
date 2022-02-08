@@ -1,4 +1,4 @@
-package com.practice2.SpringPractice2;
+package com.AcadianaPower;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

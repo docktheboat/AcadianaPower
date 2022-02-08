@@ -3,4 +3,44 @@ app:
     jdbc-url: jdbc:postgresql://ec2-34-230-198-12.compute-1.amazonaws.com:5432/d7c9qcp5bkqi59
     username: nfspvrbgvpkacy
     password: 1ca388875d5c562a9a749b9da04d9d0376808b0d925ca599225e02a287495393
-    pool-size: 15
+    pool-size: 20
+
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: acadianapowerandservices@gmail.com
+    password: tcdrrekskeimrvof
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 314988248131-cajd0q3js5ss1bdg4vuce1fgghtnnage.apps.googleusercontent.com
+            client-secret: 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
+
+
+
+weather:
+  api:
+    key: f107bb99b733e059dbfec38e8fef3e0b
+
+#jasypt:
+#  encryptor:
+#  algorithm: PBEWITHHMACSHA512ANDAES_256
+#    iv:
+#    generator:
+#    classname:
+#      org:
+#        jasypt:
+#           iv: NoIvGenerator
+#    property:
+#      prefix: "ENC@["
+#      suffix: "]"

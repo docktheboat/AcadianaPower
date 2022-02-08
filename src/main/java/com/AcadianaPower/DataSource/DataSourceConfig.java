@@ -1,4 +1,4 @@
-package com.practice2.SpringPractice2.DataSource;
+package com.AcadianaPower.DataSource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

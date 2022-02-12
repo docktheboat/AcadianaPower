@@ -23,7 +23,6 @@ public class AcadianaPower {
 		SpringApplication.run(AcadianaPower.class, args);
 	}
 
-
 }
 @RestController
 class Welcome{

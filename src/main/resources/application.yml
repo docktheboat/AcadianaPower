@@ -26,7 +26,13 @@ spring:
             client-id: 314988248131-cajd0q3js5ss1bdg4vuce1fgghtnnage.apps.googleusercontent.com
             client-secret: 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
 
+sms:
+  sid: AC3c5a0225fe60910a5d852ba894d0782c
+  auth:
+    token: 76e295b2d0c1dd460d04552eb3d1b656
 
+company:
+  phone: +19036238706
 
 weather:
   api:

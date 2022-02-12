@@ -4,6 +4,7 @@ import com.AcadianaPower.Customer.CustomerModel;
 import com.AcadianaPower.Customer.CustomerService;
 import com.AcadianaPower.Services.EmailService;
 import com.AcadianaPower.Services.Services;
+import com.AcadianaPower.Services.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,19 @@ public class OutageService {
 
     private final CustomerService customerService;
     private final EmailService emailService;
+    private final SmsService smsService;
     private final OutageRepository outageRepository;
 
     @Autowired
-    public OutageService(CustomerService customerService, EmailService emailService, OutageRepository outageRepository) {
+    public OutageService(
+            CustomerService customerService,
+            EmailService emailService,
+            SmsService smsService,
+            OutageRepository outageRepository
+    ) {
         this.customerService = customerService;
         this.emailService = emailService;
+        this.smsService = smsService;
         this.outageRepository = outageRepository;
     }
 
@@ -38,7 +46,7 @@ public class OutageService {
                 ).collect(Collectors.toList())
         );
 
-        notifyOutage(customersAffected, outage);
+        notifyOutage(customersAffected, outage.getOutageType(), outage.getRecoveryTime());
 
     }
 
@@ -82,16 +90,20 @@ public class OutageService {
                     //delete
     //}
 
-    public void notifyOutage(Optional<List<CustomerModel>> affectedCustomers, OutageModel outage ) {
+    public void notifyOutage(Optional<List<CustomerModel>> affectedCustomers, String type, String time ) {
+        String message = Services.outageMessage(type, time);
         Thread emailNotificationThread = new Thread(() -> affectedCustomers.ifPresent(
                 customerModels -> customerModels.forEach(
-                customer -> emailService.sendEmail(
-                        EmailService.companyEmail,
-                        customer.getEmail(),
-                        "There Is an Outage In Your Area - Acadiana Power",
-                        Services.outageMessage(outage.getOutageType(), outage.getRecoveryTime())
-
-                ))));
+                customer -> {
+                    emailService.sendEmail(
+                            EmailService.companyEmail,
+                            customer.getEmail(),
+                            "There Is an Outage In Your Area - Acadiana Power",
+                            message
+                    );
+                    smsService.smsNotifyOutage(customer.getPhoneNumber(), message);
+                }
+                )));
 
         emailNotificationThread.setDaemon(true);
         emailNotificationThread.start();

@@ -2,9 +2,6 @@ package com.AcadianaPower.Outages;
 
 import com.AcadianaPower.Services.Services;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -66,7 +63,7 @@ public class OutageModel {
         return dtf.format(createdAt);
     }
 
-
+    
     public void setCreationTime(LocalDateTime createdAt){
         this.createdAt = createdAt;
     }

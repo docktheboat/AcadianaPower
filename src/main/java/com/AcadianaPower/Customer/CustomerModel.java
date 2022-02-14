@@ -34,10 +34,10 @@ public class CustomerModel {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.zipCode = zipCode;
+        setZipCode(zipCode);
         this.dob = dob;
         this.phoneNumber = phoneNumber;
-        this.servicesUsed = servicesUsed;
+        setService(servicesUsed);
         this.email = email;
     }
 
@@ -70,7 +70,9 @@ public class CustomerModel {
     }
 
     public void setZipCode(Integer zipCode){
-        this.zipCode = zipCode;
+        if(Services.isServiceableArea(zipCode)) {
+            this.zipCode = zipCode;
+        }
     }
 
     public LocalDate getDob() {

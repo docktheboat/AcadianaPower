@@ -11,24 +11,16 @@ public class Services {
             70506,70508,70501,70503,70507,70583,70518,70517,70592,70520,70563,70560
     );
 
-    public static boolean serviceCheck(String service) {
-
-        Optional<String> optional = Optional.ofNullable(service);
-
-        if (optional.isPresent() && optional.get().length() > 0) {
-            service = service.replaceAll(" ", "");
-            String finalService = service;
-            if(offeredServices.stream().anyMatch(str -> str.equalsIgnoreCase(finalService)) ){
-                return true;
-            }
+    public static boolean serviceCheck(String service) {;
+        if(Optional.ofNullable(service).isPresent()){
+            return offeredServices.contains(service.toUpperCase());
         }
-            return false;
+        return false;
     }
 
     public static boolean isServiceableArea(Integer zipCode) {
-        Optional<Integer> optionalZip = Optional.ofNullable(zipCode);
-        if (optionalZip.isPresent()) {
-            return String.valueOf(zipCode).length() == 5 && serviceRangeZipCodes.contains(zipCode);
+        if (Optional.ofNullable(zipCode).isPresent()) {
+            return serviceRangeZipCodes.contains(zipCode);
         }
         return false;
     }

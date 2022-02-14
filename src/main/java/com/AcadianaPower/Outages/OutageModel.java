@@ -36,7 +36,7 @@ public class OutageModel {
 
     public OutageModel(String outageType, Integer zipCode) {
         setOutageType(outageType);
-        this.zipCode = zipCode;
+        setZipCode(zipCode);
     }
 
 
@@ -63,7 +63,6 @@ public class OutageModel {
         return dtf.format(createdAt);
     }
 
-    
     public void setCreationTime(LocalDateTime createdAt){
         this.createdAt = createdAt;
     }
@@ -81,7 +80,9 @@ public class OutageModel {
     }
 
     public void setZipCode(Integer zipCode) {
-        this.zipCode = zipCode;
+        if(Services.isServiceableArea(zipCode)) {
+            this.zipCode = zipCode;
+        }
     }
 
     @Override

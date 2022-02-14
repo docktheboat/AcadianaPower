@@ -1,11 +1,21 @@
 package com.AcadianaPower.Outages;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OutageRepository extends JpaRepository<OutageModel, Long> {
 
-    //@Query("SELECT outage FROM OutageModel outage WHERE outage.zipCode = ?1" )
-   // Optional<List<OutageModel>> getOutagesByZipCode(Integer zipCode);
+    @Query(value = "SELECT * FROM outages WHERE zip_code = ?1", nativeQuery = true)
+    Optional<List<OutageModel>> getOutagesByZip(Integer zipCode);
+
+    @Modifying
+    @Query(value = "DELETE FROM outages WHERE zip_code = ?1 AND outage_type = ?2",
+            nativeQuery = true)
+    void deleteOutage(Integer zipCode, String type);
 }

@@ -18,32 +18,24 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping("/allCustomers")
     public List<CustomerModel> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 
- /*   @GetMapping
-    public List<CustomerModel> getAllCustomers(Model model){
-        model.addAttribute("customers",customerService.getAllCustomers());
-        return customerService.getAllCustomers();
-    }*/
-
-    @PostMapping
+    @PostMapping("/newCustomer")
     public void addCustomer(@RequestBody CustomerModel customer){
         customerService.addCustomer(customer);
     }
 
-
-    @DeleteMapping(path = "{idToDelete}")
-    public void deleteCustomer(@PathVariable("idToDelete") Long idToDelete){
-        customerService.deleteCustomer(idToDelete);
+    @DeleteMapping(path = "deleteCustomer/{emailToDelete}")
+    public void deleteCustomer(@PathVariable("emailToDelete") String emailToDelete){
+        customerService.deleteCustomer(emailToDelete);
     }
 
-
-    @GetMapping(path = "service/{lastname}")
-    public List<CustomerModel> getCustomerByLastName(@PathVariable("lastname") String lastname){
-        return customerService.getCustomerByLastName(lastname);
+    @GetMapping("customerByEmail/{email}")
+    public CustomerModel getCustomerByEmail(@PathVariable("email") String email) {
+        return customerService.getCustomerByEmail(email);
     }
 
     @GetMapping("/OauthTest")

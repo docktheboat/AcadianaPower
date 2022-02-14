@@ -1,17 +1,16 @@
 package com.AcadianaPower.Outages;
 
-import com.AcadianaPower.Customer.CustomerModel;
 import com.AcadianaPower.Customer.CustomerService;
 import com.AcadianaPower.Services.EmailService;
 import com.AcadianaPower.Services.Services;
 import com.AcadianaPower.Services.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OutageService {
@@ -40,73 +39,46 @@ public class OutageService {
         outage.setRecoveryTime(LocalDateTime.now().plusHours(2).plusMinutes(30));
         outageRepository.save(outage);
 
-        Optional<List<CustomerModel>> customersAffected = Optional.of(
-                customerService.getCustomersByZipCode(outage.getZipCode()).stream()
-                .filter(customer -> customer.getServicesUsed().contains(outage.getOutageType())
-                ).collect(Collectors.toList())
-        );
-
-        notifyOutage(customersAffected, outage.getOutageType(), outage.getRecoveryTime());
+        notifyOutage(
+                Optional.of(customerService.
+                        getAffectedCustomers(outage.getZipCode(),outage.getOutageType()))
+                , outage.getOutageType()
+                , outage.getRecoveryTime());
 
     }
 
-    public void deleteOutage(Long id) {
-        if(outageRepository.existsById(id))
-        outageRepository.deleteById(id);
+    @Transactional
+    public void deleteOutage(Integer zipCode, String type) {
+        outageRepository.deleteOutage(zipCode,type);
     }
 
     public List<OutageModel> getAllOutages() {
         return outageRepository.findAll();
     }
 
-    public List<OutageModel> getOutagesByType(String outageType){
-        Optional<String> optionalType = Optional.ofNullable(outageType);
-        if(Services.serviceCheck(outageType) && optionalType.isPresent()){
-            ///////////////////////// current for testing purposes, change this later
-            return outageRepository.findAll().stream().
-                    filter(outage -> outage.getOutageType().equalsIgnoreCase(outageType))
-                    .collect(Collectors.toList());
-
-        }
-        return List.of();
+    public List<OutageModel> getOutagesByZipCode(Integer zipCode) {
+        return outageRepository.getOutagesByZip(zipCode).orElseGet(List::of);
     }
 
-    public List<OutageModel> getOutagesByZipCode(Integer zipCode){
-        //if(outageRepository.getOutagesByZipCode(zipCode).isPresent()) {
-        //return outageRepository.getOutagesByZipCode(zipCode).get();
-
-        Optional<Integer> optionalZip = Optional.ofNullable(zipCode);
-        if(optionalZip.isPresent() && String.valueOf(optionalZip.get()).length() == 5){
-            ///////////////////////// current for testing purposes, change this later
-            return outageRepository.findAll().stream().
-                    filter(outage -> outage.getZipCode().equals(zipCode)).collect(Collectors.toList());
-
-        }
-        return List.of();
-    }
-
- //   public void deleteAfterRecoveryEnd(){
-        // if ( time )
-                    //delete
-    //}
-
-    public void notifyOutage(Optional<List<CustomerModel>> affectedCustomers, String type, String time ) {
+    public void notifyOutage(Optional<List<String>> affectedCustomers, String type, String time ) {
         String message = Services.outageMessage(type, time);
-        Thread emailNotificationThread = new Thread(() -> affectedCustomers.ifPresent(
-                customerModels -> customerModels.forEach(
-                customer -> {
-                    emailService.sendEmail(
-                            EmailService.companyEmail,
-                            customer.getEmail(),
-                            "There Is an Outage In Your Area - Acadiana Power",
-                            message
-                    );
-                    smsService.smsNotifyOutage(customer.getPhoneNumber(), message);
-                }
-                )));
+        Thread NotificationThread = new Thread(() -> affectedCustomers.ifPresent(
+                customers -> customers.forEach(
+                        customerInfo -> {
+                            String[] emailAndPhone = customerInfo.split(",");
+                            emailService.sendEmail(
+                                    EmailService.companyEmail,
+                                    emailAndPhone[0],
+                                    "There Is an Outage In Your Area - Acadiana Power",
+                                    message
 
-        emailNotificationThread.setDaemon(true);
-        emailNotificationThread.start();
+                            );
+                            smsService.smsNotifyOutage(emailAndPhone[1], message);
+                        }
+                            )));
+
+        NotificationThread.setDaemon(true);
+        NotificationThread.start();
 
     }
 

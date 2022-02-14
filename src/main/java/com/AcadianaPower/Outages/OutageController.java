@@ -18,22 +18,21 @@ public class OutageController {
         this.outageService = outageService;
     }
 
-
    // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     public void addOutage(@RequestBody OutageModel outage){
         outageService.addOutage(outage);
     }
 
-   @GetMapping
+    @GetMapping
     public List<OutageModel> getAllOutages(){
         return outageService.getAllOutages();
     }
 
-
-    @DeleteMapping(path = "{id}")
-    public void deleteOutage(@PathVariable("id") Long id){
-        outageService.deleteOutage(id);
+    @DeleteMapping(path = "deleteOutage/{zipCode}/{type}")
+    public void deleteOutage(@PathVariable("zipCode") Integer zipCode,
+                             @PathVariable("type") String type) {
+        outageService.deleteOutage(zipCode,type);
     }
 
     @GetMapping(path = "area/{zipCode}")
@@ -41,9 +40,5 @@ public class OutageController {
         return outageService.getOutagesByZipCode(zipCode);
     }
 
-    @GetMapping(path = "type/{outageType}")
-    public List<OutageModel> getOutagesByType(@PathVariable("outageType") String outageType) {
-        return outageService.getOutagesByType(outageType);
-    }
 
 }

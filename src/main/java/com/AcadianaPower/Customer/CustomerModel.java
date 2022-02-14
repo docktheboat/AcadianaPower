@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -82,18 +81,14 @@ public class CustomerModel {
         this.dob = dob;
     }
 
-    public List<String> getServicesUsed() {
-        return List.of(servicesUsed.split(","));
+    public String getServicesUsed() {
+        return servicesUsed;
     }
 
     public void setService(String service) {
         if(Services.serviceCheck(service)) {
-            if(servicesUsed.length() == 0) {
                 this.servicesUsed = service;
-            }else{
-                this.servicesUsed = servicesUsed + "," + service;
             }
-        }
     }
 
     public String getPhoneNumber() {
@@ -129,7 +124,7 @@ public class CustomerModel {
                 ", address='" + address + '\'' +
                 ", zipcode='" + zipCode + '\'' +
                 ", dob=" + dob +
-                ", servicesUsed=" + getServicesUsed().toString() +
+                ", servicesUsed=" + servicesUsed + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';

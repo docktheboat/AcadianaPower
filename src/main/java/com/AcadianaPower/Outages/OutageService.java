@@ -61,8 +61,7 @@ public class OutageService {
     }
 
     public List<OutageModel> outagesByRecovery(){
-        return outageRepository.outagesByRecovery().orElseGet(List::of);
-    }
+        return outageRepository.outagesByRecovery().orElseGet(List::of); }
 
     public void notifyOutage(Optional<List<String>> affectedCustomers, String type, String time ) {
         String message = Services.outageMessage(type, time);

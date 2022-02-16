@@ -41,9 +41,7 @@ public class OutageController {
     }
 
     @GetMapping("/byRecovery")
-    public List<OutageModel> outagesByRecovery(){
-        return outageService.outagesByRecovery();
-    }
+    public List<OutageModel> outagesByRecovery(){ return outageService.outagesByRecovery();}
 
 
 }

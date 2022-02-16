@@ -2,22 +2,23 @@ package com.AcadianaPower.Customer;
 
 
 import com.AcadianaPower.Services.Services;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Table(name = "customers")
 public class CustomerModel {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
+    @SequenceGenerator(
+            name = "customers_accountid_seq",
+            sequenceName = "customers_accountid_seq",
+            allocationSize = 1
     )
-    private UUID accountNumber;
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customers_accountid_seq"
+    )
+    private Long accountID;
     private String firstName;
     private String lastName;
     private String address;
@@ -109,18 +110,18 @@ public class CustomerModel {
         this.email = email;
     }
 
-    public UUID getAccountNumber() {
-        return accountNumber;
+    public Long getAccountNumber() {
+        return accountID;
     }
 
-    public void setAccountNumber(UUID id) {
-        this.accountNumber = id;
+    public void setAccountNumber(Long id) {
+        this.accountID = id;
     }
 
     @Override
     public String toString() {
         return "CustomerModel{" +
-                "accountNumber=" + accountNumber +
+                "accountNumber=" + accountID +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +

@@ -33,6 +33,10 @@ public class CustomerService {
     }
 
     public List<String> getAffectedCustomers(Integer zipCode, String outageType){
-        return customerRepository.customersAffectedByOutage(zipCode,outageType).orElseGet(List::of);
+        return customerRepository.customersAffectedByNewOutage(zipCode,outageType).orElseGet(List::of);
+    }
+
+    public List<String> customersAffectedAllCurrentOutages(){
+        return customerRepository.customersAffectedAllOutages().orElseGet(List::of);
     }
 }

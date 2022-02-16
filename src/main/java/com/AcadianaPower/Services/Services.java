@@ -8,7 +8,7 @@ public class Services {
     public static final List<String> offeredServices = List.of("ELECTRIC", "INTERNET", "GAS");
 
     public static final List<Integer> serviceRangeZipCodes = List.of(
-            70506,70508,70501,70503,70507,70583,70518,70517,70592,70520,70563,70560
+            70506,70508,70501,70502,70503,70507,70583,70518,70517,70592,70520,70563,70560
     );
 
     public static boolean serviceCheck(String service) {;

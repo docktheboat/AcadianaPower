@@ -42,4 +42,9 @@ public class CustomerController {
     public String OauthTest(){
         return "Oauth test";
     }
+
+    @GetMapping("/allCurrentlyAffected")
+    public List<String> customersAffectedAllCurrentOutages(){
+        return customerService.customersAffectedAllCurrentOutages();
+    }
 }

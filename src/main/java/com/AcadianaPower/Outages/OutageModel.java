@@ -8,24 +8,15 @@ import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "outages")
-public class OutageModel {
+@IdClass(OutageCompositeKey.class)
+public class OutageModel{
 
     @Id
-    @SequenceGenerator(
-            name = "outages_id_seq",
-            sequenceName = "outages_id_seq",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "outages_id_seq"
-
-    )
-    private Long id;
     private String outageType;
     @CreationTimestamp
     private LocalDateTime createdAt;
     private LocalDateTime recoveryTime;
+    @Id
     private Integer zipCode;
     @Transient
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
@@ -39,14 +30,6 @@ public class OutageModel {
         setZipCode(zipCode);
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getOutageType() {
         return outageType;
@@ -88,7 +71,6 @@ public class OutageModel {
     @Override
     public String toString() {
         return "OutageModel{" +
-                "id=" + id +
                 ", outageType=" + outageType +
                 ", creationTime='" + createdAt + '\'' +
                 ", recoveryTime='" + recoveryTime + '\'' +

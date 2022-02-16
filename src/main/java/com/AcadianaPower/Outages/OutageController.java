@@ -40,5 +40,10 @@ public class OutageController {
         return outageService.getOutagesByZipCode(zipCode);
     }
 
+    @GetMapping("/byRecovery")
+    public List<OutageModel> outagesByRecovery(){
+        return outageService.outagesByRecovery();
+    }
+
 
 }

@@ -60,6 +60,9 @@ public class OutageService {
         return outageRepository.getOutagesByZip(zipCode).orElseGet(List::of);
     }
 
+    public List<OutageModel> outagesByRecovery(){
+        return outageRepository.outagesByRecovery().orElseGet(List::of); }
+
     public void notifyOutage(Optional<List<String>> affectedCustomers, String type, String time ) {
         String message = Services.outageMessage(type, time);
         Thread NotificationThread = new Thread(() -> affectedCustomers.ifPresent(

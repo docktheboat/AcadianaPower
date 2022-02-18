@@ -38,6 +38,17 @@ weather:
   api:
     key: f107bb99b733e059dbfec38e8fef3e0b
 
+
+test:
+  image: maven:3.6.3-jdk-14
+  stage: test
+  script:
+    - mvn clean install
+  artifacts:
+    when: always
+
+
+
 #jasypt:
 #  encryptor:
 #  algorithm: PBEWITHHMACSHA512ANDAES_256

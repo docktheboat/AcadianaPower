@@ -22,5 +22,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: Build With Maven
       run: mvn -B package --file pom.xml
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Junit Tests With Maven
+        run: mvn test
+

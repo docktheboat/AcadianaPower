@@ -10,6 +10,13 @@ on:
     branches: [ main ]
 
 jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Junit Tests With Maven
+        run: mvn test
+        
   build:
 
     runs-on: ubuntu-latest
@@ -25,9 +32,4 @@ jobs:
     - name: Build With Maven
       run: mvn -B package --file pom.xml
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Junit Tests With Maven
-        run: mvn test
 

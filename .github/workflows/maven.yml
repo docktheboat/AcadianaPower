@@ -1,6 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
 name: Java CI with Maven
 
 on:
@@ -10,26 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
-
-  test:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Junit Tests With Maven
-        run: mvn test
-        
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build With Maven
-      run: mvn -B package --file pom.xml
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Build with Maven Deploy with Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
 
 

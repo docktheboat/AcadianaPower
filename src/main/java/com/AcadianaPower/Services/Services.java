@@ -1,13 +1,14 @@
 package com.AcadianaPower.Services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class Services {
 
-    public static final List<String> offeredServices = List.of("ELECTRIC", "INTERNET", "GAS");
+    public static final List<String> offeredServices = Arrays.asList("ELECTRIC", "INTERNET", "GAS");
 
-    public static final List<Integer> serviceRangeZipCodes = List.of(
+    public static final List<Integer> serviceRangeZipCodes = Arrays.asList(
             70506,70508,70501,70502,70503,70507,70583,70518,70517,70592,70520,70563,70560
     );
 

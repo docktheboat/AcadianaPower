@@ -1,17 +1,17 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://ec2-34-230-198-12.compute-1.amazonaws.com:5432/d7c9qcp5bkqi59
-    username: nfspvrbgvpkacy
-    password: 1ca388875d5c562a9a749b9da04d9d0376808b0d925ca599225e02a287495393
-    pool-size: 20
+    jdbc-url: "${HEROKU_DB_URL}"
+    username: "${HEROKU_DB_USER}"
+    password: "${HEROKU_DB_KEY}"
+    pool-size: 19
 
 
 spring:
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: acadianapowerandservices@gmail.com
-    password: tcdrrekskeimrvof
+    host: "${SPRING_MAIL_HOST}"
+    port: "${SPRING_MAIL_PORT}"
+    username: "${SPRING_MAIL_USER}"
+    password: "${SPRING_MAIL_KEY}"
     properties:
       mail:
         smtp:
@@ -23,41 +23,17 @@ spring:
       client:
         registration:
           google:
-            client-id: 314988248131-cajd0q3js5ss1bdg4vuce1fgghtnnage.apps.googleusercontent.com
-            client-secret: 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
+            client-id: "${OAUTH_ID}"
+            client-secret: "${OAUTH_KEY}"
 
 sms:
-  sid: AC3c5a0225fe60910a5d852ba894d0782c
+  sid: "${SMS_SID}"
   auth:
-    token: 76e295b2d0c1dd460d04552eb3d1b656
+    token: "${SMS_TOKEN}"
 
 company:
-  phone: +19036238706
+  phone: "${COMPANY_PHONE}"
 
 weather:
   api:
-    key: f107bb99b733e059dbfec38e8fef3e0b
-
-
-test:
-  image: maven:3.6.3-jdk-14
-  stage: test
-  script:
-    - mvn clean install
-  artifacts:
-    when: always
-
-
-
-#jasypt:
-#  encryptor:
-#  algorithm: PBEWITHHMACSHA512ANDAES_256
-#    iv:
-#    generator:
-#    classname:
-#      org:
-#        jasypt:
-#           iv: NoIvGenerator
-#    property:
-#      prefix: "ENC@["
-#      suffix: "]"
+    key: "${WEATHER_API_KEY}"

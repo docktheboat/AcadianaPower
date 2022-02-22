@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class OutageService {
@@ -57,11 +56,11 @@ public class OutageService {
     }
 
     public List<OutageModel> getOutagesByZipCode(Integer zipCode) {
-        return outageRepository.getOutagesByZip(zipCode).orElseGet(List::of);
+        return outageRepository.getOutagesByZip(zipCode).orElseGet(Arrays::asList);
     }
 
     public List<OutageModel> outagesByRecovery(){
-        return outageRepository.outagesByRecovery().orElseGet(List::of); }
+        return outageRepository.outagesByRecovery().orElseGet(Arrays::asList); }
 
     public void notifyOutage(Optional<List<String>> affectedCustomers, String type, String time ) {
         String message = Services.outageMessage(type, time);

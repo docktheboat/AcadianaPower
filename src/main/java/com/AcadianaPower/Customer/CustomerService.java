@@ -3,6 +3,8 @@ package com.AcadianaPower.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -25,7 +27,7 @@ public class CustomerService {
     }
 
     public List<CustomerModel> getCustomersByZipCode(Integer zipCode){
-        return customerRepository.getCustomersByZipCode(zipCode).orElseGet(List::of);
+        return customerRepository.getCustomersByZipCode(zipCode).orElseGet(Arrays::asList);
     }
 
     public CustomerModel getCustomerByEmail(String email){
@@ -33,10 +35,10 @@ public class CustomerService {
     }
 
     public List<String> getAffectedCustomers(Integer zipCode, String outageType){
-        return customerRepository.customersAffectedByNewOutage(zipCode,outageType).orElseGet(List::of);
+        return customerRepository.customersAffectedByNewOutage(zipCode,outageType).orElseGet(Arrays::asList);
     }
 
     public List<String> customersAffectedAllCurrentOutages(){
-        return customerRepository.customersAffectedAllOutages().orElseGet(List::of);
+        return customerRepository.customersAffectedAllOutages().orElseGet(Arrays::asList);
     }
 }

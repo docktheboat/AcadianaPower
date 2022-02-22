@@ -40,7 +40,7 @@ public class WeatherController {
         JSONObject wind = new JSONObject(weatherInfo).getJSONObject("wind");
 
 
-        List<String> weatherData = new ArrayList<>(List.of(
+        List<String> weatherData = new ArrayList<>(Arrays.asList(
                 "Temperature: " + main.get("temp").toString() + " F",
                 "Conditions: " + description.toString(),
                 "Wind Speed: " + wind.get("speed").toString() + " mph"

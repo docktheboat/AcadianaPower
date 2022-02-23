@@ -8,11 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.Optional;
 import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class OutageServiceTest {
@@ -24,9 +26,15 @@ class OutageServiceTest {
     @Mock
     private CustomerRepository testCustomerRepository;
 
+    private OutageModel testOutage;
+
 
     @BeforeEach
     void init(){
+        testOutage = new OutageModel(
+              "GAS",
+              70506
+        );
         testOutageService = new OutageService(
                 new CustomerService(testCustomerRepository),
                 new EmailService(),
@@ -38,16 +46,21 @@ class OutageServiceTest {
     @Test
     @DisplayName("Verify service: add outage")
     void addOutage() {
-        OutageModel outage = new OutageModel();
-        testOutageService.addOutage(outage);
-        verify(testOutageRepository).save(outage);
+        testOutageService.addOutage(testOutage);
+
+        ArgumentCaptor<OutageModel> oArg =
+                ArgumentCaptor.forClass(OutageModel.class);
+
+        verify(testOutageRepository).save(oArg.capture());
+
+        assertEquals(oArg.getValue(),testOutage);
     }
 
     @Test
     @DisplayName("Verify service: delete outage by zipcode,outage type")
     void deleteOutage() {
-        testOutageService.deleteOutage(70506,"GAS");
-        verify(testOutageRepository).deleteOutage(70506,"GAS");
+        testOutageService.deleteOutage(testOutage.getZipCode(),testOutage.getOutageType());
+        verify(testOutageRepository).deleteOutage(testOutage.getZipCode(),testOutage.getOutageType());
     }
 
     @Test
@@ -60,8 +73,8 @@ class OutageServiceTest {
     @Test
     @DisplayName("Verify service: get outages by zipcode")
     void getOutagesByZipCode() {
-        testOutageService.getOutagesByZipCode(70506);
-        verify(testOutageRepository).getOutagesByZip(70506);
+        testOutageService.getOutagesByZipCode(testOutage.getZipCode());
+        verify(testOutageRepository).getOutagesByZip(testOutage.getZipCode());
     }
 
     @Test
@@ -76,7 +89,7 @@ class OutageServiceTest {
     void notifyOutage() {
         testOutageService.notifyOutage(
                 Optional.of(Collections.emptyList()),
-                "GAS",
+                testOutage.getOutageType(),
                 "test time"
         );
     }

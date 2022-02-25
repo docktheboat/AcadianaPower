@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
@@ -22,6 +23,10 @@ class CustomerServiceTest {
     private CustomerService testCustomerService;
 
     private CustomerModel testCustomer;
+
+    @Captor ArgumentCaptor<CustomerModel> customerArg;
+    @Captor ArgumentCaptor<String> strArg;
+    @Captor ArgumentCaptor<Integer> zipArg;
 
 
     @BeforeEach
@@ -44,14 +49,8 @@ class CustomerServiceTest {
     @DisplayName("Verify service: add customer")
     void addCustomer() {
         testCustomerService.addCustomer(testCustomer);
-
-        ArgumentCaptor<CustomerModel> cArg =
-                ArgumentCaptor.forClass(CustomerModel.class);
-
-        verify(testCustomerRepository).save(
-                cArg.capture());
-
-        assertEquals(cArg.getValue(),testCustomer);
+        verify(testCustomerRepository).save(customerArg.capture());
+        assertEquals(customerArg.getValue(),testCustomer);
     }
 
     @Test
@@ -65,21 +64,24 @@ class CustomerServiceTest {
     @DisplayName("Verify service: delete customer by email")
     void deleteCustomer() {
         testCustomerService.deleteCustomer(testCustomer.getEmail());
-        verify(testCustomerRepository).deleteCustomerByEmail(testCustomer.getEmail());
+        verify(testCustomerRepository).deleteCustomerByEmail(strArg.capture());
+        assertEquals(testCustomer.getEmail(),strArg.getValue());
     }
 
     @Test
     @DisplayName("Verify service: get customer by zipcode")
     void getCustomersByZipCode() {
         testCustomerService.getCustomersByZipCode(testCustomer.getZipCode());
-        verify(testCustomerRepository).getCustomersByZipCode(testCustomer.getZipCode());
+        verify(testCustomerRepository).getCustomersByZipCode(zipArg.capture());
+        assertEquals(testCustomer.getZipCode(),zipArg.getValue());
     }
 
     @Test
     @DisplayName("Verify service: delete customer by email")
     void getCustomerByEmail() {
         testCustomerService.getCustomerByEmail(testCustomer.getEmail());
-        verify(testCustomerRepository).getCustomerByEmail(testCustomer.getEmail());
+        verify(testCustomerRepository).getCustomerByEmail(strArg.capture());
+        assertEquals(testCustomer.getEmail(),strArg.getValue());
     }
 
     @Test
@@ -88,8 +90,12 @@ class CustomerServiceTest {
         testCustomerService.getAffectedCustomers(
                 testCustomer.getZipCode(),testCustomer.getServicesUsed());
         verify(testCustomerRepository)
-                .customersAffectedByNewOutage(testCustomer.getZipCode(),
-                        testCustomer.getServicesUsed());
+                .customersAffectedByNewOutage(zipArg.capture(),
+                        strArg.capture());
+        assertAll(
+                () -> assertEquals(testCustomer.getZipCode(),zipArg.getValue()),
+                () -> assertEquals(testCustomer.getServicesUsed(),strArg.getValue())
+        );
     }
 
     @Test

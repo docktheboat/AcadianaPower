@@ -47,4 +47,9 @@ public class CustomerController {
     public List<String> customersAffectedAllCurrentOutages(){
         return customerService.customersAffectedAllCurrentOutages();
     }
+
+    @GetMapping("/customersByZip/{zipCode}")
+    public List<CustomerModel> getCustomersByZipCode(@PathVariable("zipCode") Integer zipCode){
+        return customerService.getCustomersByZipCode(zipCode);
+    }
 }

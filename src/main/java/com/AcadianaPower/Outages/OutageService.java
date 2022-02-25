@@ -59,6 +59,10 @@ public class OutageService {
         return outageRepository.getOutagesByZip(zipCode).orElseGet(Arrays::asList);
     }
 
+    public OutageModel getSpecificOutage(Integer zipCode, String type){
+        return outageRepository.getSpecificOutage(zipCode,type).orElse(null);
+    }
+
     public List<OutageModel> outagesByRecovery(){
         return outageRepository.outagesByRecovery().orElseGet(Arrays::asList); }
 

@@ -43,5 +43,11 @@ public class OutageController {
     @GetMapping("/byRecovery")
     public List<OutageModel> outagesByRecovery(){ return outageService.outagesByRecovery();}
 
+    @GetMapping(path = "specificOutage/{zipCode}/{type}")
+    public OutageModel getSpecificOutage(@PathVariable("zipCode") Integer zipCode,
+                                         @PathVariable("type") String type) {
+        return outageService.getSpecificOutage(zipCode,type);
+    }
+
 
 }

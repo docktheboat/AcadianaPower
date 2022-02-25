@@ -1,14 +1,10 @@
 package com.AcadianaPower.Outages;
 
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -39,17 +35,14 @@ class OutageRepositoryTest {
         testOutageRepository.getOutagesByZip(zipCode).ifPresent(
                 list -> assertEquals(expected,list.isEmpty())
         );
-
     }
 
     @Test
     @DisplayName("Test delete outage")
     void deleteOutage() {
         testOutageRepository.deleteOutage(70506,"ELECTRIC");
-        testOutageRepository.getOutagesByZip(70506).ifPresent(
-                list -> assertTrue(list.isEmpty())
-        );
-
+        assertFalse(testOutageRepository.
+                getSpecificOutage(70506,"ELECTRIC").isPresent());
     }
 
     @Test
@@ -57,9 +50,20 @@ class OutageRepositoryTest {
     void outagesByRecovery() {
         OutageModel sndOutage = new OutageModel("INTERNET",70503);
         testOutageRepository.save(sndOutage);
-
-        testOutageRepository.outagesByRecovery().ifPresent(
-                list -> assertEquals("ELECTRIC", list.get(0).getOutageType())
+        testOutageRepository.outagesByRecovery().flatMap(
+                list -> list.stream().findFirst()).ifPresent(firstOutage ->
+            assertNotEquals(firstOutage, sndOutage)
         );
+    }
+
+    @Test
+    @DisplayName("Test get specific outage")
+    void getSpecificOutage(){
+        testOutageRepository.getSpecificOutage(70506,"ELECTRIC")
+                .ifPresent( o -> assertAll(
+                        () -> assertEquals("ELECTRIC",o.getOutageType()),
+                        () -> assertEquals(70506,o.getZipCode())
+                        )
+                );
     }
 }

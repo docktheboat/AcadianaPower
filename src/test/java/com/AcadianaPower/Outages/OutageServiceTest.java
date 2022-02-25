@@ -9,10 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.util.Collections;
-import java.util.Optional;
 import static org.mockito.Mockito.verify;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,6 +26,11 @@ class OutageServiceTest {
     private CustomerRepository testCustomerRepository;
 
     private OutageModel testOutage;
+
+    @Captor ArgumentCaptor<Integer> zipArg;
+    @Captor ArgumentCaptor<String> typeArg;
+    @Captor ArgumentCaptor<OutageModel> outageArg;
+
 
 
     @BeforeEach
@@ -47,20 +51,19 @@ class OutageServiceTest {
     @DisplayName("Verify service: add outage")
     void addOutage() {
         testOutageService.addOutage(testOutage);
-
-        ArgumentCaptor<OutageModel> oArg =
-                ArgumentCaptor.forClass(OutageModel.class);
-
-        verify(testOutageRepository).save(oArg.capture());
-
-        assertEquals(oArg.getValue(),testOutage);
+        verify(testOutageRepository).save(outageArg.capture());
+        assertEquals(outageArg.getValue(),testOutage);
     }
 
     @Test
     @DisplayName("Verify service: delete outage by zipcode,outage type")
     void deleteOutage() {
         testOutageService.deleteOutage(testOutage.getZipCode(),testOutage.getOutageType());
-        verify(testOutageRepository).deleteOutage(testOutage.getZipCode(),testOutage.getOutageType());
+        verify(testOutageRepository).deleteOutage(zipArg.capture(),typeArg.capture());
+        assertAll(
+                () -> assertEquals(testOutage.getZipCode(),zipArg.getValue()),
+                () -> assertEquals(testOutage.getOutageType(),typeArg.getValue())
+        );
     }
 
     @Test
@@ -74,7 +77,8 @@ class OutageServiceTest {
     @DisplayName("Verify service: get outages by zipcode")
     void getOutagesByZipCode() {
         testOutageService.getOutagesByZipCode(testOutage.getZipCode());
-        verify(testOutageRepository).getOutagesByZip(testOutage.getZipCode());
+        verify(testOutageRepository).getOutagesByZip(zipArg.capture());
+        assertEquals(testOutage.getZipCode(),zipArg.getValue());
     }
 
     @Test
@@ -85,12 +89,13 @@ class OutageServiceTest {
     }
 
     @Test
-    @DisplayName("Verify service: notify outage")
-    void notifyOutage() {
-        testOutageService.notifyOutage(
-                Optional.of(Collections.emptyList()),
-                testOutage.getOutageType(),
-                "test time"
+    @DisplayName("Verify service: get specific outage")
+    void getSpecificOutage(){
+        testOutageService.getSpecificOutage(testOutage.getZipCode(), testOutage.getOutageType());
+        verify(testOutageRepository).getSpecificOutage(zipArg.capture(),typeArg.capture());
+        assertAll(
+                () -> assertEquals(testOutage.getZipCode(),zipArg.getValue()),
+                () -> assertEquals(testOutage.getOutageType(),typeArg.getValue())
         );
     }
 }

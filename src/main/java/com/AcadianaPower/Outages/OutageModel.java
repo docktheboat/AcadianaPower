@@ -55,6 +55,9 @@ public class OutageModel{
         int recovery = (int)ChronoUnit.MINUTES.between(LocalDateTime.now(),recoveryTime);
         int minutes = recovery % 60;
         int hours = (recovery - minutes) / 60;
+        if((hours + minutes) <= 0) {
+            return "0";
+        }
         return hours + " Hours and " + minutes + " Minutes";
     }
 

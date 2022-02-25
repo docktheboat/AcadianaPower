@@ -62,6 +62,7 @@ public class OutageService {
     public List<OutageModel> outagesByRecovery(){
         return outageRepository.outagesByRecovery().orElseGet(Arrays::asList); }
 
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public void notifyOutage(Optional<List<String>> affectedCustomers, String type, String time ) {
         String message = Services.outageMessage(type, time);
         Thread NotificationThread = new Thread(() -> affectedCustomers.ifPresent(

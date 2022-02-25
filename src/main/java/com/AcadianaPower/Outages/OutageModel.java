@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "outages")
@@ -51,7 +52,10 @@ public class OutageModel{
     }
 
     public String getRecoveryTime() {
-        return dtf.format(recoveryTime);
+        int recovery = (int)ChronoUnit.MINUTES.between(LocalDateTime.now(),recoveryTime);
+        int minutes = recovery % 60;
+        int hours = (recovery - minutes) / 60;
+        return hours + " Hours and " + minutes + " Minutes";
     }
 
     public void setRecoveryTime(LocalDateTime recoveryTime) {

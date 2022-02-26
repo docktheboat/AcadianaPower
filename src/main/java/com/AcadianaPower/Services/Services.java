@@ -30,9 +30,10 @@ public class Services {
         return
                 "Hello from Acadiana Power.\n" +
                 "This is a message to notify you that you may experience " +
-                "a(n) " + outageType +
-                " outage. We are sorry for the inconvenience.\n" +
-                        "The expected recovery date/time is " + recoveryTime;
+                "an outage in your " + outageType.toLowerCase() +
+                " services.\nWe are sorry for the inconvenience.\n" +
+                        "The expected recovery time is " + recoveryTime +
+                        ".\nWe thank you for your patience.";
 
     }
 

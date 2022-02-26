@@ -58,7 +58,7 @@ public class OutageModel{
         if((hours + minutes) <= 0) {
             return "0";
         }
-        return hours + " Hours and " + minutes + " Minutes";
+        return hours + " hours and " + minutes + " minutes";
     }
 
     public void setRecoveryTime(LocalDateTime recoveryTime) {

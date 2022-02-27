@@ -1,5 +1,6 @@
-package com.AcadianaPower.Outages;
+package com.AcadianaPower.Models;
 
+import com.AcadianaPower.Keys.OutageCompositeKey;
 import com.AcadianaPower.Services.Services;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;

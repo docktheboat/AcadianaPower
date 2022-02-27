@@ -1,11 +1,13 @@
-package com.AcadianaPower.Customer;
+package com.AcadianaPower.Services;
 
+import com.AcadianaPower.Models.CustomerModel;
+import com.AcadianaPower.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class CustomerService {
@@ -17,7 +19,10 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public void addCustomer(CustomerModel customer){customerRepository.save(customer);}
+    public String addCustomer(CustomerModel customer){
+        customerRepository.save(customer);
+        return "New account created";
+    }
 
     public List<CustomerModel> getAllCustomers(){ return customerRepository.findAll(); }
 

@@ -1,8 +1,10 @@
 package com.AcadianaPower.Customer;
 
 
-import com.AcadianaPower.Outages.OutageModel;
-import com.AcadianaPower.Outages.OutageRepository;
+import com.AcadianaPower.Models.CustomerModel;
+import com.AcadianaPower.Models.OutageModel;
+import com.AcadianaPower.Repositories.CustomerRepository;
+import com.AcadianaPower.Repositories.OutageRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

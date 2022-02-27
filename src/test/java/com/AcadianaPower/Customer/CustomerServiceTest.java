@@ -1,5 +1,8 @@
 package com.AcadianaPower.Customer;
 
+import com.AcadianaPower.Models.CustomerModel;
+import com.AcadianaPower.Repositories.CustomerRepository;
+import com.AcadianaPower.Services.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

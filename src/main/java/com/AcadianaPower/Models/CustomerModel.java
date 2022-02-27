@@ -1,4 +1,4 @@
-package com.AcadianaPower.Customer;
+package com.AcadianaPower.Models;
 
 
 import com.AcadianaPower.Services.Services;

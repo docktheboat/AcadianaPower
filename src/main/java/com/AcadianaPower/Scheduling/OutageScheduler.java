@@ -1,6 +1,8 @@
-package com.AcadianaPower.Outages;
+package com.AcadianaPower.Scheduling;
 
 
+import com.AcadianaPower.Models.OutageModel;
+import com.AcadianaPower.Services.OutageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

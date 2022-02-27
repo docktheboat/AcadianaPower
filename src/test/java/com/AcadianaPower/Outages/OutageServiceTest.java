@@ -1,8 +1,11 @@
 package com.AcadianaPower.Outages;
 
-import com.AcadianaPower.Customer.CustomerRepository;
-import com.AcadianaPower.Customer.CustomerService;
+import com.AcadianaPower.Models.OutageModel;
+import com.AcadianaPower.Repositories.CustomerRepository;
+import com.AcadianaPower.Repositories.OutageRepository;
+import com.AcadianaPower.Services.CustomerService;
 import com.AcadianaPower.Services.EmailService;
+import com.AcadianaPower.Services.OutageService;
 import com.AcadianaPower.Services.SmsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

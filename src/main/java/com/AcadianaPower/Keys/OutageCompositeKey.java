@@ -1,4 +1,4 @@
-package com.AcadianaPower.Outages;
+package com.AcadianaPower.Keys;
 
 import java.io.Serializable;
 

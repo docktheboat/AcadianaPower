@@ -1,9 +1,7 @@
-package com.AcadianaPower.Outages;
+package com.AcadianaPower.Services;
 
-import com.AcadianaPower.Customer.CustomerService;
-import com.AcadianaPower.Services.EmailService;
-import com.AcadianaPower.Services.Services;
-import com.AcadianaPower.Services.SmsService;
+import com.AcadianaPower.Models.OutageModel;
+import com.AcadianaPower.Repositories.OutageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,15 +1,15 @@
-package com.AcadianaPower.Services;
+package com.AcadianaPower.Validation;
 
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 
-public class ServicesTests {
+public class ServiceValidationTests {
 
 
     @ParameterizedTest
@@ -20,7 +20,7 @@ public class ServicesTests {
     })
     @DisplayName("Services, service check test")
     public void serviceCheckTest(String service, boolean expected){
-        assertEquals(expected, Services.serviceCheck(service));
+        assertEquals(expected, ServiceValidation.serviceCheck(service));
     }
 
 
@@ -31,6 +31,6 @@ public class ServicesTests {
     })
     @DisplayName("Services, serviceable area test")
     public void isServiceableAreaTest(Integer zipCode, boolean expected){
-        assertEquals(expected,Services.isServiceableArea(zipCode));
+        assertEquals(expected, ServiceValidation.isServiceableArea(zipCode));
     }
 }

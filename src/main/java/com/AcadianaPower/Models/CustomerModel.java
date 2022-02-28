@@ -1,8 +1,12 @@
 package com.AcadianaPower.Models;
 
 
-import com.AcadianaPower.Services.Services;
+import com.AcadianaPower.Validation.ServiceValidation;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -19,13 +23,33 @@ public class CustomerModel {
             generator = "customers_accountid_seq"
     )
     private Long accountID;
+
+    @NotEmpty(message = ServiceValidation.emptyField)
+    @Size(min = 2, max = 50, message = ServiceValidation.nameError)
     private String firstName;
+
+    @NotEmpty(message = ServiceValidation.emptyField)
+    @Size(min = 2, max = 50, message = ServiceValidation.nameError)
     private String lastName;
+
+    @NotEmpty(message = ServiceValidation.emptyField)
     private String address;
+
+    @NotNull(message = ServiceValidation.zipError)
     private Integer zipCode;
+
+    @NotNull(message = ServiceValidation.emptyField)
     private LocalDate dob;
+
+    @NotEmpty(message = ServiceValidation.serviceError)
     private String servicesUsed;
+
+    @NotEmpty(message = ServiceValidation.emptyField)
+    @Size(min = 10, max = 10, message = ServiceValidation.phoneError)
     private String phoneNumber;
+
+    @NotEmpty(message = ServiceValidation.emptyField)
+    @Email(message = "Your email is not valid")
     private String email;
 
     public CustomerModel(){}
@@ -71,7 +95,7 @@ public class CustomerModel {
     }
 
     public void setZipCode(Integer zipCode){
-        if(Services.isServiceableArea(zipCode)) {
+        if(ServiceValidation.isServiceableArea(zipCode)) {
             this.zipCode = zipCode;
         }
     }
@@ -89,7 +113,7 @@ public class CustomerModel {
     }
 
     public void setService(String service) {
-        if(Services.serviceCheck(service)) {
+        if(ServiceValidation.serviceCheck(service)) {
                 this.servicesUsed = service;
             }
     }

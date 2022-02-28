@@ -4,8 +4,11 @@ package com.AcadianaPower.Controllers;
 import com.AcadianaPower.Models.OutageModel;
 import com.AcadianaPower.Services.OutageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,8 +25,9 @@ public class OutageController {
 
    // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
-    public void addOutage(@RequestBody OutageModel outage){
+    public ResponseEntity<String> addOutage(@Valid @RequestBody OutageModel outage){
         outageService.addOutage(outage);
+        return new ResponseEntity<String>("Outage created", HttpStatus.CREATED);
     }
 
     @GetMapping

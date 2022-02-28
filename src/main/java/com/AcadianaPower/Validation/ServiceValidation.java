@@ -1,10 +1,17 @@
-package com.AcadianaPower.Services;
+package com.AcadianaPower.Validation;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Services {
+public class ServiceValidation {
+
+    public static final String emptyField = "Fields must not be empty";
+    public static final String nameError = "Names must be in between 2 and 50 characters";
+    public static final String phoneError = "Phone number must be 10 digits";
+    public static final String zipError = "The given zipcode is not a serviceable area";
+    public static final String serviceError = "That service is not offered, please choose from" +
+            "electric, gas, or internet";
 
     public static final List<String> offeredServices = Arrays.asList("ELECTRIC", "INTERNET", "GAS");
 

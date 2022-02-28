@@ -4,8 +4,11 @@ package com.AcadianaPower.Controllers;
 import com.AcadianaPower.Models.CustomerModel;
 import com.AcadianaPower.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,8 +29,9 @@ public class CustomerController {
     }
 
     @PostMapping("/newCustomer")
-    public String addCustomer(@RequestBody CustomerModel customer){
-        return customerService.addCustomer(customer);
+    public ResponseEntity<String> addCustomer(@Valid @RequestBody CustomerModel customer){
+        customerService.addCustomer(customer);
+        return new ResponseEntity<String>("Account Created", HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "deleteCustomer/{emailToDelete}")

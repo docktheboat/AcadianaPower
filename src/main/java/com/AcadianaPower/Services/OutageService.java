@@ -2,6 +2,7 @@ package com.AcadianaPower.Services;
 
 import com.AcadianaPower.Models.OutageModel;
 import com.AcadianaPower.Repositories.OutageRepository;
+import com.AcadianaPower.Validation.ServiceValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,7 +67,7 @@ public class OutageService {
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public void notifyOutage(Optional<List<String>> affectedCustomers, String type, String time ) {
-        String message = Services.outageMessage(type, time);
+        String message = ServiceValidation.outageMessage(type, time);
         Thread NotificationThread = new Thread(() -> affectedCustomers.ifPresent(
                 customers -> customers.forEach(
                         customerInfo -> {

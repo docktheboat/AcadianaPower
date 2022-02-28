@@ -1,4 +1,4 @@
-package com.AcadianaPower.Customer;
+package com.AcadianaPower.Services;
 
 import com.AcadianaPower.Models.CustomerModel;
 import com.AcadianaPower.Repositories.CustomerRepository;
@@ -40,7 +40,7 @@ class CustomerServiceTest {
                 "707 Memory Lane",
                 70503,
                 LocalDate.of(1982, Month.AUGUST,22),
-                "777-777-7777",
+                "7775557777",
                 "GAS",
                 "testEmail@test.com"
         );

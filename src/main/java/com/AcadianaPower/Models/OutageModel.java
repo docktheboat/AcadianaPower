@@ -1,9 +1,11 @@
 package com.AcadianaPower.Models;
 
 import com.AcadianaPower.Keys.OutageCompositeKey;
-import com.AcadianaPower.Services.Services;
+import com.AcadianaPower.Validation.ServiceValidation;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -14,11 +16,13 @@ import java.time.temporal.ChronoUnit;
 public class OutageModel{
 
     @Id
+    @NotEmpty(message = ServiceValidation.serviceError)
     private String outageType;
     @CreationTimestamp
     private LocalDateTime createdAt;
     private LocalDateTime recoveryTime;
     @Id
+    @NotNull(message = ServiceValidation.zipError)
     private Integer zipCode;
     @Transient
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
@@ -38,7 +42,7 @@ public class OutageModel{
     }
 
     public void setOutageType(String outageType) {
-        if(Services.serviceCheck(outageType)) {
+        if(ServiceValidation.serviceCheck(outageType)) {
             this.outageType = outageType;
         }
     }
@@ -71,7 +75,7 @@ public class OutageModel{
     }
 
     public void setZipCode(Integer zipCode) {
-        if(Services.isServiceableArea(zipCode)) {
+        if(ServiceValidation.isServiceableArea(zipCode)) {
             this.zipCode = zipCode;
         }
     }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Services {
+public class ServiceValidation {
 
     public static final String emptyField = "Fields must not be empty";
     public static final String nameError = "Names must be in between 2 and 50 characters";

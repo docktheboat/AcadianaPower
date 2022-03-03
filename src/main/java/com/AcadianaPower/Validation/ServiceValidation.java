@@ -21,7 +21,7 @@ public class ServiceValidation {
 
     public static boolean serviceCheck(String service) {;
         if(Optional.ofNullable(service).isPresent()){
-            return offeredServices.contains(service.toUpperCase());
+            return offeredServices.contains(service.toUpperCase().trim());
         }
         return false;
     }

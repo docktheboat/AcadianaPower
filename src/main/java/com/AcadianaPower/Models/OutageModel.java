@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 
 @Entity
 @Table(name = "outages")
@@ -56,14 +57,19 @@ public class OutageModel{
         this.createdAt = createdAt;
     }
 
-    public String getRecoveryTime() {
+    public HashMap<String,Integer> getRecoveryTime() {
         int recovery = (int)ChronoUnit.MINUTES.between(LocalDateTime.now(),recoveryTime);
         int minutes = recovery % 60;
         int hours = (recovery - minutes) / 60;
-        if((hours + minutes) <= 0) {
-            return "0";
-        }
-        return hours + " hours and " + minutes + " minutes";
+        /*if((hours + minutes) <= 0) {
+            hours = 0;
+            minutes = 0;
+        }*/
+        //int finalHours = hours;
+        return new HashMap<String,Integer>(){{
+            put("hours", hours);
+            put("minutes",minutes);
+        }};
     }
 
     public void setRecoveryTime(LocalDateTime recoveryTime) {
@@ -80,12 +86,18 @@ public class OutageModel{
         }
     }
 
+    public String recoveryToString(){
+        HashMap<String,Integer> t = getRecoveryTime();
+        return t.get("hours") + " hours and " + t.get("minutes") + " minutes";
+    }
+
     @Override
     public String toString() {
+
         return "OutageModel{" +
                 ", outageType=" + outageType +
                 ", creationTime='" + createdAt + '\'' +
-                ", recoveryTime='" + recoveryTime + '\'' +
+                ", recoveryTime='" + recoveryToString() + '\'' +
                 ", zipCode=" + zipCode +
                 '}';
     }

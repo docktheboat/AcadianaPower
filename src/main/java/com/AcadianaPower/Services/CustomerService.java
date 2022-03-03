@@ -18,6 +18,9 @@ public class CustomerService {
     }
 
     public void addCustomer(CustomerModel customer){
+        if(customerRepository.getCustomerByEmail(customer.getEmail()).isPresent()){
+            throw new IllegalArgumentException("An account with that email already exists");
+        }
         customerRepository.save(customer);
     }
 

@@ -30,7 +30,13 @@ public class CustomerController {
 
     @PostMapping("/newCustomer")
     public ResponseEntity<String> addCustomer(@Valid @RequestBody CustomerModel customer){
-        customerService.addCustomer(customer);
+        try {
+            customerService.addCustomer(customer);
+        }catch(IllegalArgumentException iae){
+            return new ResponseEntity<String>("Please use a different email account",
+                    HttpStatus.UNPROCESSABLE_ENTITY);
+
+        }
         return new ResponseEntity<String>("Account Created", HttpStatus.CREATED);
     }
 

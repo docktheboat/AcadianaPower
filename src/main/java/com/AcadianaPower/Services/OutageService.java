@@ -34,6 +34,10 @@ public class OutageService {
 
     public void addOutage(OutageModel outage) {
 
+        if(outageRepository.getSpecificOutage(outage.getZipCode(), outage.getOutageType()).isPresent()){
+            throw new IllegalArgumentException("That outage already exists");
+        }
+
         outage.setRecoveryTime(LocalDateTime.now().plusHours(2).plusMinutes(30));
         outageRepository.save(outage);
 
@@ -41,7 +45,7 @@ public class OutageService {
                 Optional.of(customerService.
                         getAffectedCustomers(outage.getZipCode(),outage.getOutageType()))
                 , outage.getOutageType()
-                , outage.getRecoveryTime());
+                , outage.recoveryToString());
 
     }
 

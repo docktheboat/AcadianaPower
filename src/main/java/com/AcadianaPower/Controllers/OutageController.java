@@ -26,7 +26,12 @@ public class OutageController {
    // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     public ResponseEntity<String> addOutage(@Valid @RequestBody OutageModel outage){
-        outageService.addOutage(outage);
+        try{
+            outageService.addOutage(outage);
+        }catch(IllegalArgumentException iae){
+            return new ResponseEntity<String>("That outage already exists",
+                    HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         return new ResponseEntity<String>("Outage created", HttpStatus.CREATED);
     }
 

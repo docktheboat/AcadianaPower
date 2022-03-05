@@ -11,16 +11,26 @@ import java.util.Optional;
 @Repository
 public interface OutageRepository extends JpaRepository<OutageModel, Long> {
 
-    @Query(value = "SELECT * FROM outages WHERE zip_code = ?1", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM outages " +
+            "WHERE zip_code = ?1", nativeQuery = true)
     Optional<List<OutageModel>> getOutagesByZip(Integer zipCode);
 
     @Modifying
-    @Query(value = "DELETE FROM outages WHERE zip_code = ?1 AND outage_type = ?2", nativeQuery = true)
+    @Query(value = "DELETE " +
+            "FROM outages " +
+            "WHERE zip_code = ?1 " +
+            "AND outage_type = ?2", nativeQuery = true)
     void deleteOutage(Integer zipCode, String type);
 
-    @Query(value = "SELECT * FROM outages ORDER BY recovery_time;", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM outages " +
+            "ORDER BY recovery_time;", nativeQuery = true)
     Optional<List<OutageModel>> outagesByRecovery();
 
-    @Query(value = "SELECT * FROM outages WHERE zip_code = ?1 AND outage_type = ?2", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM outages " +
+            "WHERE zip_code = ?1 " +
+            "AND outage_type = ?2", nativeQuery = true)
     Optional<OutageModel> getSpecificOutage(Integer zipCode, String type);
 }

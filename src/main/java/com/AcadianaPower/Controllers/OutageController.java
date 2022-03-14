@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-//@Controller
 @RequestMapping(path = "/Outages")
 public class OutageController {
 
@@ -23,8 +23,7 @@ public class OutageController {
         this.outageService = outageService;
     }
 
-   // @RequestMapping(method = RequestMethod.POST)
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<String> addOutage(@Valid @RequestBody OutageModel outage){
         try{
             outageService.addOutage(outage);
@@ -35,9 +34,9 @@ public class OutageController {
         return new ResponseEntity<String>("Outage created", HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public List<OutageModel> getAllOutages(){
-        return outageService.getAllOutages();
+    @GetMapping("/getAll")
+    public ResponseEntity<List<OutageModel>> getAllOutages(){
+        return new ResponseEntity<>(outageService.getAllOutages(), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "deleteOutage/{zipCode}/{type}")
@@ -51,13 +50,14 @@ public class OutageController {
         return outageService.getOutagesByZipCode(zipCode);
     }
 
-    @GetMapping("/byRecovery")
+    @GetMapping("/getByRecovery")
     public List<OutageModel> outagesByRecovery(){ return outageService.outagesByRecovery();}
 
     @GetMapping(path = "specificOutage/{zipCode}/{type}")
-    public OutageModel getSpecificOutage(@PathVariable("zipCode") Integer zipCode,
+    public ResponseEntity<OutageModel> getSpecificOutage(@PathVariable("zipCode") Integer zipCode,
                                          @PathVariable("type") String type) {
-        return outageService.getSpecificOutage(zipCode,type);
+        return new ResponseEntity<>(outageService.getSpecificOutage(zipCode,type),
+                HttpStatus.OK);
     }
 
 

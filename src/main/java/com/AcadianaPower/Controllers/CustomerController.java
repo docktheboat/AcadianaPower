@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/Customer")
 public class CustomerController {
@@ -24,8 +25,8 @@ public class CustomerController {
     }
 
     @GetMapping("/allCustomers")
-    public List<CustomerModel> getAllCustomers(){
-        return customerService.getAllCustomers();
+    public ResponseEntity<List<CustomerModel>> getAllCustomers(){
+        return new ResponseEntity<>(customerService.getAllCustomers(),HttpStatus.OK);
     }
 
     @PostMapping("/newCustomer")
@@ -37,7 +38,7 @@ public class CustomerController {
                     HttpStatus.UNPROCESSABLE_ENTITY);
 
         }
-        return new ResponseEntity<String>("Account Created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "deleteCustomer/{emailToDelete}")
@@ -46,22 +47,12 @@ public class CustomerController {
     }
 
     @GetMapping("customerByEmail/{email}")
-    public CustomerModel getCustomerByEmail(@PathVariable("email") String email) {
-        return customerService.getCustomerByEmail(email);
-    }
-
-    @GetMapping("/OauthTest")
-    public String OauthTest(){
-        return "Oauth test";
-    }
-
-    @GetMapping("/allCurrentlyAffected")
-    public List<String> customersAffectedAllCurrentOutages(){
-        return customerService.customersAffectedAllCurrentOutages();
+    public ResponseEntity<CustomerModel> getCustomerByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(customerService.getCustomerByEmail(email),HttpStatus.OK);
     }
 
     @GetMapping("/customersByZip/{zipCode}")
-    public List<CustomerModel> getCustomersByZipCode(@PathVariable("zipCode") Integer zipCode){
-        return customerService.getCustomersByZipCode(zipCode);
+    public ResponseEntity<List<CustomerModel>> getCustomersByZipCode(@PathVariable("zipCode") Integer zipCode){
+        return new ResponseEntity<>(customerService.getCustomersByZipCode(zipCode),HttpStatus.OK);
     }
 }

@@ -67,8 +67,8 @@ public class OutageModel{
         }*/
         //int finalHours = hours;
         return new HashMap<String,Integer>(){{
-            put("hours", hours);
-            put("minutes",minutes);
+            put("hrs", hours);
+            put("mins",minutes);
         }};
     }
 
@@ -88,7 +88,7 @@ public class OutageModel{
 
     public String recoveryToString(){
         HashMap<String,Integer> t = getRecoveryTime();
-        return t.get("hours") + " hours and " + t.get("minutes") + " minutes";
+        return t.get("hrs") + "hrs/" + t.get("mins") + "mins";
     }
 
     @Override

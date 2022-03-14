@@ -46,4 +46,5 @@ public class CustomerService {
     public List<String> customersAffectedAllCurrentOutages(){
         return customerRepository.customersAffectedAllOutages().orElseGet(Arrays::asList);
     }
+
 }

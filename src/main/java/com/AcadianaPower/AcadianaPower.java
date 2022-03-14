@@ -20,11 +20,9 @@ public class AcadianaPower {
 		return new RestTemplate();
 	}
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(AcadianaPower.class, args);
 	}
-
 }
 @RestController
 class Welcome{

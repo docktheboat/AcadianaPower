@@ -5,6 +5,8 @@ app:
     password: "${HEROKU_DB_KEY}"
     pool-size: 19
 
+angular:
+  url: "${ANGULAR_URL}"
 
 spring:
   mail:

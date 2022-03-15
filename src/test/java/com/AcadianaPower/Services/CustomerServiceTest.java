@@ -41,7 +41,7 @@ class CustomerServiceTest {
                 70503,
                 LocalDate.of(1982, Month.AUGUST,22),
                 "7775557777",
-                "GAS",
+                "INTERNET",
                 "testEmail@test.com"
         );
 

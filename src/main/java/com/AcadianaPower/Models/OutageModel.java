@@ -43,6 +43,7 @@ public class OutageModel{
     }
 
     public void setOutageType(String outageType) {
+        outageType = outageType.toUpperCase().trim();
         if(ServiceValidation.serviceCheck(outageType)) {
             this.outageType = outageType;
         }
@@ -61,11 +62,6 @@ public class OutageModel{
         int recovery = (int)ChronoUnit.MINUTES.between(LocalDateTime.now(),recoveryTime);
         int minutes = recovery % 60;
         int hours = (recovery - minutes) / 60;
-        /*if((hours + minutes) <= 0) {
-            hours = 0;
-            minutes = 0;
-        }*/
-        //int finalHours = hours;
         return new HashMap<String,Integer>(){{
             put("hrs", hours);
             put("mins",minutes);
@@ -86,18 +82,13 @@ public class OutageModel{
         }
     }
 
-    public String recoveryToString(){
-        HashMap<String,Integer> t = getRecoveryTime();
-        return t.get("hrs") + "hrs/" + t.get("mins") + "mins";
-    }
-
     @Override
     public String toString() {
 
         return "OutageModel{" +
                 ", outageType=" + outageType +
                 ", creationTime='" + createdAt + '\'' +
-                ", recoveryTime='" + recoveryToString() + '\'' +
+                ", recoveryTime='" + getRecoveryTime() + '\'' +
                 ", zipCode=" + zipCode +
                 '}';
     }

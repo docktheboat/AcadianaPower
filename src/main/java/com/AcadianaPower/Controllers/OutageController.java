@@ -60,5 +60,11 @@ public class OutageController {
                 HttpStatus.OK);
     }
 
+    /*
+    @GetMapping("/getByCreation")
+    public ResponseEntity<List<OutageModel>> outagesByCreation(){
+        return new ResponseEntity<>(outageService.outagesByCreation(),HttpStatus.OK);
+    }*/
+
 
 }

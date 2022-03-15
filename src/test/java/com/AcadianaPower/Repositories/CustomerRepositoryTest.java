@@ -34,12 +34,12 @@ class CustomerRepositoryTest {
                 70503,
                 LocalDate.of(1982,Month.AUGUST,22),
                 "7775557777",
-                "GAS",
+                "INTERNET",
                 "testEmail@test.com"
         ));
 
         testOutageRepository.save(
-                new OutageModel("GAS",70503)
+                new OutageModel("INTERNET",70503)
         );
     }
 
@@ -93,7 +93,7 @@ class CustomerRepositoryTest {
     @ParameterizedTest
     @CsvSource({
             "70506,ELECTRIC,true",
-            "70503,GAS,false"
+            "70503,INTERNET,false"
     })
     @DisplayName("Test customers affected by new outage")
     void customersAffectedByNewOutage(Integer zipCode, String outage, boolean expected) {

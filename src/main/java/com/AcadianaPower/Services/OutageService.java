@@ -45,7 +45,7 @@ public class OutageService {
                 Optional.of(customerService.
                         getAffectedCustomers(outage.getZipCode(),outage.getOutageType()))
                 , outage.getOutageType()
-                , outage.recoveryToString());
+                , outage.getRecoveryTime().toString());
 
     }
 
@@ -91,5 +91,9 @@ public class OutageService {
         NotificationThread.start();
 
     }
+
+    /*public List<OutageModel> outagesByCreation(){
+        return outageRepository.outagesByCreation().orElseGet(Arrays::asList);
+    }*/
 
 }

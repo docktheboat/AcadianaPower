@@ -35,7 +35,7 @@ class OutageServiceTest {
     @BeforeEach
     void init(){
         testOutage = new OutageModel(
-              "GAS",
+              "INTERNET",
               70506
         );
         testOutageService = new OutageService(

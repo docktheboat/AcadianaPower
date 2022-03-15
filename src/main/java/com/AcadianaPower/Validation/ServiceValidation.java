@@ -11,9 +11,9 @@ public class ServiceValidation {
     public static final String phoneError = "Phone number must be 10 digits";
     public static final String zipError = "The given zipcode is not a serviceable area";
     public static final String serviceError = "That service is not offered, please choose from" +
-            "electric, gas, or internet";
+            "electric or internet";
 
-    public static final List<String> offeredServices = Arrays.asList("ELECTRIC", "INTERNET", "GAS");
+    public static final List<String> offeredServices = Arrays.asList("ELECTRIC", "INTERNET");
 
     public static final List<Integer> serviceRangeZipCodes = Arrays.asList(
             70506,70508,70501,70502,70503,70507,70583,70518,70517,70592,70520,70563,70560

@@ -14,7 +14,6 @@ public class ServiceValidationTests {
 
     @ParameterizedTest
     @CsvSource({
-            "Gas,true",
             "Internet,true",
             "Electric,true"
     })

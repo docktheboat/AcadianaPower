@@ -34,9 +34,9 @@ public interface OutageRepository extends JpaRepository<OutageModel, Long> {
             "AND outage_type = ?2", nativeQuery = true)
     Optional<OutageModel> getSpecificOutage(Integer zipCode, String type);
 
-   /* @Query(value = "SELECT * " +
+    @Query(value = "SELECT * " +
             "FROM outages " +
             "ORDER BY created_at;", nativeQuery = true)
-    Optional<List<OutageModel>> outagesByCreation();*/
+    Optional<List<OutageModel>> outagesByCreation();
 
 }

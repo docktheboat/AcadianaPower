@@ -92,8 +92,8 @@ public class OutageService {
 
     }
 
-    /*public List<OutageModel> outagesByCreation(){
+    public List<OutageModel> outagesByCreation(){
         return outageRepository.outagesByCreation().orElseGet(Arrays::asList);
-    }*/
+    }
 
 }

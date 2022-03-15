@@ -36,7 +36,7 @@ public interface OutageRepository extends JpaRepository<OutageModel, Long> {
 
     @Query(value = "SELECT * " +
             "FROM outages " +
-            "ORDER BY created_at;", nativeQuery = true)
+            "ORDER BY created_at DESC;", nativeQuery = true)
     Optional<List<OutageModel>> outagesByCreation();
 
 }

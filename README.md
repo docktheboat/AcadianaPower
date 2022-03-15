@@ -4,7 +4,7 @@ Senior Project UL Lafayette CMPS 490
 
 **Project Overview:**
 > This is the backend of a full stack web application created in
-<br>Collaboration with a university team and CGI of Lafayette.
+<br>collaboration with a university team and CGI of Lafayette.
 
 **Project Description:**
 >This project represents a local utility service provider that produces real-time

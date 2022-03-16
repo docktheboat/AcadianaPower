@@ -19,7 +19,7 @@ public class ServiceValidation {
             70506,70508,70501,70502,70503,70507,70583,70518,70517,70592,70520,70563,70560
     );
 
-    public static boolean serviceCheck(String service) {;
+    public static boolean serviceCheck(String service) {
         if(Optional.ofNullable(service).isPresent()){
             return offeredServices.contains(service.toUpperCase().trim());
         }

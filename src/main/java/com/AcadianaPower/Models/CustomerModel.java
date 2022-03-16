@@ -45,7 +45,7 @@ public class CustomerModel {
     private String servicesUsed;
 
     @NotEmpty(message = ServiceValidation.emptyField)
-    @Size(min = 10, max = 10, message = ServiceValidation.phoneError)
+    @Size(min = 10, message = ServiceValidation.phoneError)
     private String phoneNumber;
 
     @NotEmpty(message = ServiceValidation.emptyField)

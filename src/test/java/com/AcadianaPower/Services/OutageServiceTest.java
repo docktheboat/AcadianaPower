@@ -3,6 +3,7 @@ package com.AcadianaPower.Services;
 import com.AcadianaPower.Models.OutageModel;
 import com.AcadianaPower.Repositories.CustomerRepository;
 import com.AcadianaPower.Repositories.OutageRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,12 +20,11 @@ class OutageServiceTest {
 
     @Mock
     private OutageRepository testOutageRepository;
-    private OutageService testOutageService;
-
     @Mock
     private CustomerRepository testCustomerRepository;
 
     private OutageModel testOutage;
+    private OutageService testOutageService;
 
     @Captor ArgumentCaptor<Integer> zipArg;
     @Captor ArgumentCaptor<String> typeArg;
@@ -96,5 +96,12 @@ class OutageServiceTest {
                 () -> assertEquals(testOutage.getZipCode(),zipArg.getValue()),
                 () -> assertEquals(testOutage.getOutageType(),typeArg.getValue())
         );
+    }
+
+    @Test
+    @DisplayName("Verify service : get outages by their creation date")
+    void getOutagesByRecovery(){
+        testOutageService.outagesByCreation();
+        verify(testOutageRepository).outagesByCreation();
     }
 }

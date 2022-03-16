@@ -53,7 +53,10 @@ class OutageRepositoryTest {
         testOutageRepository.save(sndOutage);
         testOutageRepository.outagesByRecovery().flatMap(
                 list -> list.stream().findFirst()).ifPresent(firstOutage ->
-            assertNotEquals(firstOutage, sndOutage)
+                assertAll(
+                        () -> assertEquals(firstOutage.getOutageType(),"ELECTRIC"),
+                        () -> assertEquals(firstOutage.getZipCode(), 70506)
+                )
         );
     }
 
@@ -66,5 +69,19 @@ class OutageRepositoryTest {
                         () -> assertEquals(70506,o.getZipCode())
                         )
                 );
+    }
+
+    @Test
+    @DisplayName("Test get outages by their creation date")
+    void getOutageByCreation(){
+        OutageModel sndOutage = new OutageModel("INTERNET",70503);
+        testOutageRepository.save(sndOutage);
+        testOutageRepository.outagesByCreation().flatMap(
+                list -> list.stream().findFirst()).ifPresent(firstOutage ->
+                assertAll(
+                        () -> assertEquals(firstOutage.getOutageType(),"INTERNET"),
+                        () -> assertEquals(firstOutage.getZipCode(), 70503)
+                )
+        );
     }
 }

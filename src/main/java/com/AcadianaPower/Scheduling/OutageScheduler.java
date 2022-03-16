@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class OutageScheduler {
@@ -24,7 +23,7 @@ public class OutageScheduler {
     public void deleteResolvedOutages(){
         List<OutageModel> schDelOutage = outageService.outagesByRecovery();
         for(OutageModel o : schDelOutage){
-            if(o.getRecoveryTime().values().stream().reduce(0,Integer::sum) <= 0){
+            if(o.getRecoveryTime().stream().reduce(0,Integer::sum) <= 0){
                 outageService.deleteOutage(
                         o.getZipCode(),
                         o.getOutageType());

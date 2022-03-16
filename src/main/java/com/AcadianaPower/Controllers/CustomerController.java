@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @PostMapping("/newCustomer")
-    public ResponseEntity<String> addCustomer(@Valid @RequestBody CustomerModel customer){
+    public ResponseEntity<String> addCustomer(@RequestBody CustomerModel customer){
         try {
             customerService.addCustomer(customer);
         }catch(IllegalArgumentException iae){

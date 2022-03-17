@@ -112,9 +112,10 @@ public class CustomerModel {
         return servicesUsed;
     }
 
-    public void setService(String service) {
-        if(ServiceValidation.serviceCheck(service)) {
-                this.servicesUsed = service.toUpperCase().trim();
+    public void setService(String servicesUsed) {
+        servicesUsed = servicesUsed.toUpperCase().trim();
+        if(ServiceValidation.serviceCheck(servicesUsed)) {
+                this.servicesUsed = servicesUsed;
             }
     }
 

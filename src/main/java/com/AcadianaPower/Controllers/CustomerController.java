@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "${angular.url}" + "/Customer")
+@CrossOrigin(origins = "${angular.url}")
 @RestController
 @RequestMapping(path = "/Customer")
 public class CustomerController {

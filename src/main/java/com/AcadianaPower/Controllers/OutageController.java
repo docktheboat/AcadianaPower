@@ -39,13 +39,13 @@ public class OutageController {
         return new ResponseEntity<>(outageService.getAllOutages(), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "deleteOutage/{zipCode}/{type}")
+    @DeleteMapping(path = "/deleteOutage/{zipCode}/{type}")
     public void deleteOutage(@PathVariable("zipCode") Integer zipCode,
                              @PathVariable("type") String type) {
         outageService.deleteOutage(zipCode,type);
     }
 
-    @GetMapping(path = "area/{zipCode}")
+    @GetMapping(path = "/area/{zipCode}")
     public List<OutageModel> getOutagesByZipCode(@PathVariable("zipCode") Integer zipCode){
         return outageService.getOutagesByZipCode(zipCode);
     }
@@ -53,7 +53,7 @@ public class OutageController {
     @GetMapping("/getByRecovery")
     public List<OutageModel> outagesByRecovery(){ return outageService.outagesByRecovery();}
 
-    @GetMapping(path = "specificOutage/{zipCode}/{type}")
+    @GetMapping(path = "/specificOutage/{zipCode}/{type}")
     public ResponseEntity<OutageModel> getSpecificOutage(@PathVariable("zipCode") Integer zipCode,
                                          @PathVariable("type") String type) {
         return new ResponseEntity<>(outageService.getSpecificOutage(zipCode,type),

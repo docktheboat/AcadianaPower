@@ -2,13 +2,19 @@ package com.AcadianaPower.Models;
 
 
 import com.AcadianaPower.Validation.ServiceValidation;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "customers")
 public class CustomerModel {
@@ -26,10 +32,6 @@ public class CustomerModel {
 
     @NotEmpty(message = ServiceValidation.emptyField)
     @Size(min = 2, max = 50, message = ServiceValidation.nameError)
-    private String firstName;
-
-    @NotEmpty(message = ServiceValidation.emptyField)
-    @Size(min = 2, max = 50, message = ServiceValidation.nameError)
     private String lastName;
 
     @NotEmpty(message = ServiceValidation.emptyField)
@@ -38,9 +40,6 @@ public class CustomerModel {
     @NotNull(message = ServiceValidation.zipError)
     private Integer zipCode;
 
-    @NotNull(message = ServiceValidation.emptyField)
-    private LocalDate dob;
-
     @NotEmpty(message = ServiceValidation.serviceError)
     private String servicesUsed;
 
@@ -48,50 +47,21 @@ public class CustomerModel {
     @Size(min = 10, message = ServiceValidation.phoneError)
     private String phoneNumber;
 
+
     @NotEmpty(message = ServiceValidation.emptyField)
     @Email(message = "Your email is not valid")
     private String email;
 
     public CustomerModel(){}
 
-    public CustomerModel(String firstName, String lastName, String address, Integer zipCode,
-                         LocalDate dob, String phoneNumber,String servicesUsed, String email) {
-        this.firstName = firstName;
+    public CustomerModel(String lastName, String address, Integer zipCode,
+                         String phoneNumber,String servicesUsed, String email) {
         this.lastName = lastName;
         this.address = address;
         setZipCode(zipCode);
-        this.dob = dob;
         this.phoneNumber = phoneNumber;
         setService(servicesUsed);
         this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Integer getZipCode(){
-        return zipCode;
     }
 
     public void setZipCode(Integer zipCode){
@@ -99,19 +69,6 @@ public class CustomerModel {
             this.zipCode = zipCode;
         }
     }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public String getServicesUsed() {
-        return servicesUsed;
-    }
-
     public void setService(String servicesUsed) {
         servicesUsed = servicesUsed.toUpperCase().trim();
         if(ServiceValidation.serviceCheck(servicesUsed)) {
@@ -119,42 +76,4 @@ public class CustomerModel {
             }
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getAccountNumber() {
-        return accountID;
-    }
-
-    public void setAccountNumber(Long id) {
-        this.accountID = id;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerModel{" +
-                "accountNumber=" + accountID +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", zipcode='" + zipCode + '\'' +
-                ", dob=" + dob +
-                ", servicesUsed=" + servicesUsed + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

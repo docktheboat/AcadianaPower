@@ -14,11 +14,15 @@ class OutageRepositoryTest {
     @Autowired
     private OutageRepository testOutageRepository;
 
+    private OutageModel fstOutage;
+    private OutageModel sndOutage;
+
     @BeforeEach
-    void init(){
-        testOutageRepository.save(new OutageModel(
-                "ELECTRIC",70506
-        ));
+    void init() throws InterruptedException {
+        fstOutage = new OutageModel("ELECTRIC",70506);
+        sndOutage = new OutageModel("INTERNET",70503);
+        testOutageRepository.save(fstOutage);
+        testOutageRepository.save(sndOutage);
     }
 
     @AfterEach
@@ -29,7 +33,8 @@ class OutageRepositoryTest {
     @ParameterizedTest
     @CsvSource({
             "70506,false",
-            "70503,true"
+            "70503,false",
+            "70592,true"
     })
     @DisplayName("Test outages by zip code")
     void getOutagesByZip(Integer zipCode, boolean expected) {
@@ -41,21 +46,27 @@ class OutageRepositoryTest {
     @Test
     @DisplayName("Test delete outage")
     void deleteOutage() {
-        testOutageRepository.deleteOutage(70506,"ELECTRIC");
+        testOutageRepository.deleteOutage(
+                fstOutage.getZipCode(),
+                fstOutage.getOutageType());
         assertFalse(testOutageRepository.
-                getSpecificOutage(70506,"ELECTRIC").isPresent());
+                getSpecificOutage(
+                        fstOutage.getZipCode(),
+                        fstOutage.getOutageType()).isPresent());
     }
 
     @Test
     @DisplayName("Test outages by recovery")
     void outagesByRecovery() {
-        OutageModel sndOutage = new OutageModel("INTERNET",70503);
-        testOutageRepository.save(sndOutage);
         testOutageRepository.outagesByRecovery().flatMap(
                 list -> list.stream().findFirst()).ifPresent(firstOutage ->
                 assertAll(
-                        () -> assertEquals(firstOutage.getOutageType(),"ELECTRIC"),
-                        () -> assertEquals(firstOutage.getZipCode(), 70506)
+                        () -> assertEquals(
+                                firstOutage.getOutageType(),
+                                fstOutage.getOutageType()),
+                        () -> assertEquals(
+                                firstOutage.getZipCode(),
+                                fstOutage.getZipCode())
                 )
         );
     }
@@ -63,10 +74,16 @@ class OutageRepositoryTest {
     @Test
     @DisplayName("Test get specific outage")
     void getSpecificOutage(){
-        testOutageRepository.getSpecificOutage(70506,"ELECTRIC")
+        testOutageRepository.getSpecificOutage(
+                        fstOutage.getZipCode(),
+                        fstOutage.getOutageType())
                 .ifPresent( o -> assertAll(
-                        () -> assertEquals("ELECTRIC",o.getOutageType()),
-                        () -> assertEquals(70506,o.getZipCode())
+                        () -> assertEquals(
+                                fstOutage.getOutageType()
+                                ,o.getOutageType()),
+                        () -> assertEquals(
+                                fstOutage.getZipCode(),
+                                o.getZipCode())
                         )
                 );
     }
@@ -74,13 +91,14 @@ class OutageRepositoryTest {
     @Test
     @DisplayName("Test get outages by their creation date")
     void getOutageByCreation(){
-        OutageModel sndOutage = new OutageModel("INTERNET",70503);
-        testOutageRepository.save(sndOutage);
         testOutageRepository.outagesByCreation().flatMap(
                 list -> list.stream().findFirst()).ifPresent(firstOutage ->
                 assertAll(
-                        () -> assertEquals(firstOutage.getOutageType(),"INTERNET"),
-                        () -> assertEquals(firstOutage.getZipCode(), 70503)
+                        () -> assertEquals(
+                                firstOutage.getOutageType(),
+                                sndOutage.getOutageType()),
+                        () -> assertEquals(firstOutage.getZipCode(),
+                                sndOutage.getZipCode())
                 )
         );
     }

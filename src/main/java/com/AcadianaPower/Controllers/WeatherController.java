@@ -1,57 +1,29 @@
 package com.AcadianaPower.Controllers;
 
-import org.json.*;
+import com.AcadianaPower.Models.WeatherModel;
+import com.AcadianaPower.Services.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 
 @RestController
 public class WeatherController {
 
-    @Value("${weather.api.key}")
-    private String apiKey;
+    public final WeatherService weatherService;
 
     @Autowired
-    private RestTemplate restTemplate;
+    public WeatherController(WeatherService weatherService){
+        this.weatherService = weatherService;
+    }
 
     @GetMapping("/Weather")
-    public WeatherStruct getWeather() {
-
-        String url = "https://api.openweathermap.org/data/2.5/" +
-                "weather?q=Lafayette,US-LA&appid=" + apiKey + "&units=imperial";
-
-        String weatherInfo = restTemplate.getForObject(url, String.class);
-
-        JSONObject main = new JSONObject(weatherInfo).getJSONObject("main");
-        JSONArray weather = new JSONObject(weatherInfo).getJSONArray("weather");
-        Object description = weather.getJSONObject(0).get("description");
-        JSONObject wind = new JSONObject(weatherInfo).getJSONObject("wind");
-
-        MathContext threeSig = new MathContext(3);
-
-        return new WeatherStruct(
-                BigDecimal.valueOf(Double.parseDouble(main.get("temp").toString())).round(threeSig),
-                description.toString(),
-                BigDecimal.valueOf(Double.parseDouble(wind.get("speed").toString())).round(threeSig));
+    public ResponseEntity<WeatherModel> getWeather() {
+        return new ResponseEntity<>(weatherService.getWeather(), HttpStatus.OK);
     }
 
 }
 
-class WeatherStruct {
-    public BigDecimal temperature;
-    public String conditions;
-    public BigDecimal windSpeed;
-    public WeatherStruct(BigDecimal temperature,
-                         String conditions,
-                         BigDecimal windSpeed) {
-        this.temperature = temperature;
-        this.conditions = conditions;
-        this.windSpeed = windSpeed;
-    }
-}
 

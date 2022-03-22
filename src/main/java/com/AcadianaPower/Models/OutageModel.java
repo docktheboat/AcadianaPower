@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -88,7 +87,6 @@ public class OutageModel{
 
     @Override
     public String toString() {
-
         return "OutageModel{" +
                 ", outageType=" + outageType +
                 ", creationTime='" + createdAt + '\'' +

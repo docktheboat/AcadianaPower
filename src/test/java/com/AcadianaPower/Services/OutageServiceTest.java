@@ -3,7 +3,6 @@ package com.AcadianaPower.Services;
 import com.AcadianaPower.Models.OutageModel;
 import com.AcadianaPower.Repositories.CustomerRepository;
 import com.AcadianaPower.Repositories.OutageRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -98,9 +97,10 @@ class OutageServiceTest {
         );
     }
 
+
     @Test
     @DisplayName("Verify service : get outages by their creation date")
-    void getOutagesByRecovery(){
+    void outagesByCreation(){
         testOutageService.outagesByCreation();
         verify(testOutageRepository).outagesByCreation();
     }

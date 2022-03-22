@@ -23,7 +23,7 @@ public class SmsService {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message.creator(
                 new com.twilio.type.PhoneNumber(
-                        "+1"+customerPhone.replaceAll("-","")),
+                        "+1"+customerPhone.replaceAll("[ (/),-]", "")),
                 new PhoneNumber(companyPhone),
                 message).create();
     }

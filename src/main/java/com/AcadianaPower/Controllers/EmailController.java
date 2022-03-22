@@ -17,13 +17,23 @@ public class EmailController {
     }
 
 
-    @PostMapping("/send")
+   /* @PostMapping("/send")
     public void reportOutage(@RequestBody EmailModel emailModel){
         emailService.sendEmail(
                 emailModel.getSender(),
                 EmailService.companyEmail,
                 "Outage Report (" + emailModel.getService() +"," + emailModel.getZipCode()+")",
                 emailModel.getMessage()
+        );
+    }*/
+
+    @GetMapping("/send")
+    public void reportOutage(){
+        emailService.sendEmail(
+                EmailService.companyEmail,
+                EmailService.companyEmail,
+                "Outage Report",
+                "hey"
         );
     }
 }

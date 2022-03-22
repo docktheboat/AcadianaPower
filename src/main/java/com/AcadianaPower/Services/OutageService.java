@@ -77,7 +77,6 @@ public class OutageService {
                         customerInfo -> {
                             String[] emailAndPhone = customerInfo.split(",");
                             emailService.sendEmail(
-                                    EmailService.companyEmail,
                                     emailAndPhone[0],
                                     "There Is an Outage In Your Area - Acadiana Power",
                                     message

@@ -28,11 +28,9 @@ class CustomerRepositoryTest {
     void init(){
         testCustomerRepository.save(
         new CustomerModel(
-                "Mandy",
                 "Walsh",
                 "707 Memory Lane",
                 70503,
-                LocalDate.of(1982,Month.AUGUST,22),
                 "7775557777",
                 "INTERNET",
                 "testEmail@test.com"

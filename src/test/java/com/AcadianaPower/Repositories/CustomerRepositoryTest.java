@@ -82,14 +82,6 @@ class CustomerRepositoryTest {
     }
 
 
-    @Test
-    @DisplayName("Test customers affected by all current outages")
-    void customersAffectedAllOutages(){
-        testCustomerRepository.customersAffectedAllOutages().ifPresent(
-                list -> assertFalse(list.isEmpty())
-        );
-    }
-
     @ParameterizedTest
     @CsvSource({
             "70506,ELECTRIC,true",

@@ -101,10 +101,4 @@ class CustomerServiceTest {
         );
     }
 
-    @Test
-    @DisplayName("Verify service: customers affected by all current outages")
-    void customersAffectedAllCurrentOutages() {
-        testCustomerService.customersAffectedAllCurrentOutages();
-        verify(testCustomerRepository).customersAffectedAllOutages();
-    }
 }

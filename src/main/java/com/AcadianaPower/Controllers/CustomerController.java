@@ -41,12 +41,12 @@ public class CustomerController {
         return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "deleteCustomer/{emailToDelete}")
+    @DeleteMapping(path = "/deleteCustomer/{emailToDelete}")
     public void deleteCustomer(@PathVariable("emailToDelete") String emailToDelete){
         customerService.deleteCustomer(emailToDelete);
     }
 
-    @GetMapping("customerByEmail/{email}")
+    @GetMapping("/customerByEmail/{email}")
     public ResponseEntity<CustomerModel> getCustomerByEmail(@PathVariable("email") String email) {
         return new ResponseEntity<>(customerService.getCustomerByEmail(email),HttpStatus.OK);
     }

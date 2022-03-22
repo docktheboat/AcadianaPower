@@ -43,8 +43,5 @@ public class CustomerService {
         return customerRepository.customersAffectedByNewOutage(zipCode,outageType).orElseGet(Arrays::asList);
     }
 
-    public List<String> customersAffectedAllCurrentOutages(){
-        return customerRepository.customersAffectedAllOutages().orElseGet(Arrays::asList);
-    }
 
 }

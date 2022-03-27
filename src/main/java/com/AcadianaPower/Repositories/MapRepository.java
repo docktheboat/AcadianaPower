@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface MapRepository extends JpaRepository<MapModel, Long> {
 
-    @Query(value = "SELECT * FROM census_tract WHERE zip_code = ?1;")
+    @Query(value = "SELECT * FROM census_tract WHERE zip_code = ?1;", nativeQuery = true)
     Optional<List<MapModel>> tractByZip(Integer zipCode);
 }

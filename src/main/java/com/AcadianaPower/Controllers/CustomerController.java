@@ -3,7 +3,8 @@ package com.AcadianaPower.Controllers;
 
 import com.AcadianaPower.Models.CustomerModel;
 import com.AcadianaPower.Services.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.AcadianaPower.User.AcadianaUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,17 @@ import java.util.List;
 @CrossOrigin(origins = "${angular.url}")
 @RestController
 @RequestMapping(path = "/Customer")
+@AllArgsConstructor
 public class CustomerController {
 
 
     private final CustomerService customerService;
+    private final AcadianaUserService userService;
 
-    @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    @GetMapping("/currentCustomer")
+    public ResponseEntity<CustomerModel> currentCustomer(){
+        return new ResponseEntity<>(customerService.getCustomerByEmail(
+                userService.currentUser().getEmail()), HttpStatus.OK);
     }
 
     @GetMapping("/allCustomers")

@@ -8,9 +8,6 @@ import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -18,28 +15,17 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class AcadianaUser implements UserDetails {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank
-    @Email
     private String email;
-
-    @NotBlank
     private String password;
-
-    @NotNull
     private Boolean locked;
-
-    @NotNull
     private Boolean enabled;
-
     @Enumerated(EnumType.STRING)
-    @NotBlank
     private UserRoles role;
 
     public AcadianaUser(String email, String password, UserRoles role) {

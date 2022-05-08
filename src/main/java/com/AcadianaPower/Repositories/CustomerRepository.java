@@ -35,7 +35,7 @@ public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
                     "INTERSECT " +
                     "(SELECT email, phone_number " +
                     "FROM customers " +
-                    "WHERE UPPER(services_used) = ?2));"
+                    "WHERE UPPER(services_used) = ?2))"
             , nativeQuery = true)
     Optional<List<String>> customersAffectedByNewOutage(Integer zipCode, String outageType);
 }

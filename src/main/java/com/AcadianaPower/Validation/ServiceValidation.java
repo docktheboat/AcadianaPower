@@ -44,4 +44,10 @@ public class ServiceValidation {
 
     }
 
+    public static String confirmationMessage(){
+        return "Hello from Acadiana Power.\n" +
+                "Thank you for submitting your report.\n" +
+                "We will contact you shortly.";
+    }
+
 }

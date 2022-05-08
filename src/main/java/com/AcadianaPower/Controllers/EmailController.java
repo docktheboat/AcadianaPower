@@ -15,7 +15,7 @@ import javax.validation.constraints.Email;
 @CrossOrigin(origins = "${angular.url}")
 @RestController
 @RequestMapping("/Email")
-@AllArgsConstructor
+/*@AllArgsConstructor*/
 public class EmailController {
 
     @Value("${spring.mail.username}")
@@ -24,8 +24,8 @@ public class EmailController {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Autowired
-    private final EmailService emailService;
+   /* @Autowired
+    private final EmailService emailService;*/
 
     @PostMapping("/send")
     public void sendEmail(@RequestBody EmailModel emailModel){
@@ -39,9 +39,9 @@ public class EmailController {
         javaMailSender.send(message);
 
        // Send confirmation
-        emailService.sendEmail(emailModel.getSender(),
+       /* emailService.sendEmail(emailModel.getSender(),
                 "Report Confirmation",
-                ServiceValidation.confirmationMessage());
+                ServiceValidation.confirmationMessage());*/
 
     }
 }
